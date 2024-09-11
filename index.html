@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,10 +17,21 @@
   </head>
   <body>
     <header>
-      <div class="container"></div>
+      <div class="container" id="head">
+        <div class="row">
+          <div class="column-full"><h1>Code Journal</h1></div>
+        </div>
+      </div>
     </header>
     <main class="container">
-      <div data-view="entry-form"></div>
+      <div data-view="entry-form">
+        <div class="row">
+          <div class="column-full"><h1>New Entry</h1></div>
+        </div>
+        <div class="row">
+          <div class="column-half"></div>
+        </div>
+      </div>
       <div data-view="entries" class="hidden"></div>
     </main>
     <script src="js/data.js"></script>
