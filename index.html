@@ -19,18 +19,49 @@
     <header>
       <div class="container" id="head">
         <div class="row">
-          <div class="column-full"><h1>Code Journal</h1></div>
+          <div class="column-full">
+            <h1 class="main-title">Code Journal</h1>
+          </div>
         </div>
       </div>
     </header>
     <main class="container">
       <div data-view="entry-form">
         <div class="row">
-          <div class="column-full"><h1>New Entry</h1></div>
+          <div class="column-full"><h1 class="new-entry">New Entry</h1></div>
         </div>
-        <div class="row">
-          <div class="column-half"></div>
-        </div>
+        <form>
+          <div class="row">
+            <div class="column-half">
+              <img
+                class="image entry-form"
+                src="images/placeholder-image-square.jpg" />
+            </div>
+            <div class="column-half">
+              <p>Title</p>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                class="entry-form"
+                required />
+              <p>Photo URL</p>
+              <input
+                type="url"
+                id="photo-url"
+                name="photo-url"
+                class="entry-form"
+                required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <p>Notes</p>
+              <textarea></textarea>
+              <button type="submit">SAVE</button>
+            </div>
+          </div>
+        </form>
       </div>
       <div data-view="entries" class="hidden"></div>
     </main>
