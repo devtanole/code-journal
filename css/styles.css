@@ -1,4 +1,4 @@
-#head {
+.head {
   background-color: rgb(115, 21, 204);
   color: whitesmoke;
   min-width: 100%;
@@ -23,7 +23,7 @@ textarea {
   height: 120px;
 }
 
-button {
+.button {
   display: block;
   margin-top: 3px;
   margin-left: 710px;
