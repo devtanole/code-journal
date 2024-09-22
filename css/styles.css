@@ -39,3 +39,17 @@ label {
   font-weight: bold;
   margin-bottom: 2px;
 }
+
+a {
+  display: flex;
+  position: relative;
+  bottom: 27px;
+  right: 500px;
+}
+
+.new {
+  cursor: pointer;
+  background-color: rgb(115, 21, 204);
+  color: whitesmoke;
+  border: none;
+}
