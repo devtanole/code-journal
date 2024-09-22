@@ -14,6 +14,8 @@ const $noEntriesText = document.querySelector('#none');
 const $entryFormViewElement = document.querySelector(
   'div[data-view="entry-form"]',
 );
+const $entriesViewElement = document.querySelector('div[data-view="entries"]');
+
 const $headerLinks = document.querySelectorAll('.head-links');
 
 if ($formElement == null || $entryImage == null || $entryListElement == null)
@@ -106,16 +108,16 @@ function toggleNoEntries(): void {
 }
 
 function viewSwap(viewName: 'entries' | 'entry-form'): void {
-  if (!$entryFormViewElement || !$entryListElement) {
+  if (!$entryFormViewElement || !$entriesViewElement) {
     throw new Error('$entryFormView or $entriesView is null');
   }
 
   if (viewName === 'entries') {
-    $entryListElement.classList.remove('hidden');
+    $entriesViewElement.classList.remove('hidden');
     $entryFormViewElement.classList.add('hidden');
   } else if (viewName === 'entry-form') {
     $entryFormViewElement.classList.remove('hidden');
-    $entryListElement.classList.add('hidden');
+    $entriesViewElement.classList.add('hidden');
   }
   data.view = viewName;
 }
