@@ -21,7 +21,10 @@
         <div class="row">
           <div class="column-full">
             <h1 class="main-title">Code Journal</h1>
-            <a href="#" data-view="entries" class="button head-links"
+            <a
+              href="#"
+              data-view="entries"
+              class="button head-links entry-anchor"
               >Entries</a
             >
           </div>
@@ -70,13 +73,11 @@
         </form>
       </div>
       <div data-view="entries" class="hidden">
-        <div class="entries head column-full">
+        <div class="entries column-full">
           <h1>Entries</h1>
-          <a href="#" data-view="entry-form" class="button new head-links"
-            >New</a
-          >
+          <a href="#" data-view="entry-form" class="new head-links">NEW</a>
         </div>
-        <p id="none">No entries yet</p>
+        <p id="none" class="hidden">No entries yet</p>
         <ul class="entry-list"></ul>
       </div>
     </main>
