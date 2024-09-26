@@ -66,3 +66,10 @@ label {
 li {
   list-style-type: none;
 }
+
+.edit {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  margin-top: -82px;
+}
