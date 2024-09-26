@@ -17,10 +17,16 @@
   </head>
   <body>
     <header>
-      <div class="container" id="head">
+      <div class="container head">
         <div class="row">
           <div class="column-full">
             <h1 class="main-title">Code Journal</h1>
+            <a
+              href="#"
+              data-view="entries"
+              class="button head-links entry-anchor"
+              >Entries</a
+            >
           </div>
         </div>
       </div>
@@ -60,13 +66,20 @@
               <label for="notes">Notes</label>
               <textarea required id="notes" name="notes"></textarea>
             </div>
-            <div class="form button">
-              <button type="submit">SAVE</button>
+            <div>
+              <button type="submit" class="button">SAVE</button>
             </div>
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries" class="hidden">
+        <div class="entries column-full">
+          <h1>Entries</h1>
+          <a href="#" data-view="entry-form" class="new head-links">NEW</a>
+        </div>
+        <p id="none" class="hidden">No entries yet</p>
+        <ul class="entry-list"></ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
