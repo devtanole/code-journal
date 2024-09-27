@@ -79,6 +79,23 @@ function renderEntry(entry) {
   $rightColumn.append($entryTitle, $entryNotes, $editIcon);
   return $entry;
 }
+$entryListElement.addEventListener('click', (event) => {
+  const $eventTarget = event?.target;
+  if ($eventTarget.tagName === 'I') {
+    const $clickedEntry = $eventTarget.closest('li');
+    if ($clickedEntry !== null) {
+      const $clickedEntryId = Number($clickedEntry.dataset.entryId);
+      for (const entry of data.entries) {
+        if (entry.entryId === $clickedEntryId) {
+          data.editing = entry;
+          // prepopulateFormForEntryEdit(entry);
+          viewSwap('entry-form');
+          break;
+        }
+      }
+    }
+  }
+});
 function toggleNoEntries() {
   if ($noEntriesText == null) throw new Error('failed');
   if (data.entries.length > 0) $noEntriesText.classList.add('hidden');

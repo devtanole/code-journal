@@ -103,6 +103,24 @@ function renderEntry(entry: JournalEntry): HTMLLIElement {
   return $entry;
 }
 
+$entryListElement.addEventListener('click', (event: Event) => {
+  const $eventTarget = event?.target as HTMLElement;
+  if ($eventTarget.tagName === 'I') {
+    const $clickedEntry = $eventTarget.closest('li') as HTMLElement;
+    if ($clickedEntry !== null) {
+      const $clickedEntryId = Number($clickedEntry.dataset.entryId);
+      for (const entry of data.entries) {
+        if (entry.entryId === $clickedEntryId) {
+          data.editing = entry;
+          // prepopulateFormForEntryEdit(entry);
+          viewSwap('entry-form');
+          break;
+        }
+      }
+    }
+  }
+});
+
 function toggleNoEntries(): void {
   if ($noEntriesText == null) throw new Error('failed');
 
