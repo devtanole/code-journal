@@ -11,6 +11,7 @@ const $entryFormViewElement = document.querySelector(
 );
 const $entriesViewElement = document.querySelector('div[data-view="entries"]');
 const $headerLinks = document.querySelectorAll('.head-links');
+const $headerEntry = document.querySelector('.header-entries');
 if ($formElement == null || $entryImage == null || $entryListElement == null)
   throw new Error('failed');
 $photoUrlElement.addEventListener('input', (event) => {
@@ -21,20 +22,50 @@ $photoUrlElement.addEventListener('input', (event) => {
 });
 $formElement.addEventListener('submit', (event) => {
   event.preventDefault();
-  const newEntry = {
-    entryId: data.nextEntryId++,
+  const entryToSave = {
+    entryId: 0,
     title: formControls.title.value,
     photoUrl: formControls.photoUrl.value,
     notes: formControls.notes.value,
   };
-  data.entries.unshift(newEntry);
+  if (data.editing === null) {
+    entryToSave.entryId = data.nextEntryId++;
+    data.entries.unshift(entryToSave);
+    const $newLiElement = renderEntry(entryToSave);
+    $entryListElement.prepend($newLiElement);
+  } else {
+    const entryItem = data.editing;
+    const entryId = entryItem.entryId;
+    entryToSave.entryId = entryId;
+    let entryIndex = -1;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === entryId) {
+        entryIndex = i;
+        break;
+      }
+    }
+    if (entryIndex >= 0) {
+      data.entries[entryIndex] = entryToSave;
+      const $newLiElement = renderEntry(entryToSave);
+      const $liEntryReplace = document.querySelector(
+        'li[data-entry-id="' + entryId + '"]',
+      );
+      $liEntryReplace?.replaceWith($newLiElement);
+    } else {
+      throw new Error('entry to edit not found');
+    }
+    data.editing = null;
+  }
   writeData();
-  $entryImage.setAttribute('src', placeholderImage);
-  $formElement.reset();
-  $entryListElement.prepend(renderEntry(newEntry));
-  if (data.entries.length === 1) toggleNoEntries();
+  resetForm();
+  toggleNoEntries();
   viewSwap('entries');
 });
+function resetForm() {
+  $formElement.reset();
+  $entryImage.setAttribute('src', placeholderImage);
+  $headerEntry.textContent = 'New Entry';
+}
 // issue 2
 document.addEventListener('DOMContentLoaded', () => {
   for (const entry of data.entries) {
@@ -88,7 +119,8 @@ $entryListElement.addEventListener('click', (event) => {
       for (const entry of data.entries) {
         if (entry.entryId === $clickedEntryId) {
           data.editing = entry;
-          // prepopulateFormForEntryEdit(entry);
+          //$headerEntry.textContent = 'Entries';
+          prepopulateFormForEntryEdit(entry);
           viewSwap('entry-form');
           break;
         }
@@ -96,6 +128,13 @@ $entryListElement.addEventListener('click', (event) => {
     }
   }
 });
+function prepopulateFormForEntryEdit(entry) {
+  formControls.title.value = entry.title;
+  formControls.photoUrl.value = entry.photoUrl;
+  formControls.notes.value = entry.notes;
+  $entryImage.setAttribute('src', entry.photoUrl);
+  $headerEntry.textContent = 'Edit Entry';
+}
 function toggleNoEntries() {
   if ($noEntriesText == null) throw new Error('failed');
   if (data.entries.length > 0) $noEntriesText.classList.add('hidden');
@@ -111,6 +150,10 @@ function viewSwap(viewName) {
   } else if (viewName === 'entry-form') {
     $entryFormViewElement.classList.remove('hidden');
     $entriesViewElement.classList.add('hidden');
+  }
+  if (data.view !== viewName) {
+    data.view = viewName;
+    writeData();
   }
   data.view = viewName;
 }
