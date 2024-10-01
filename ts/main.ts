@@ -184,7 +184,6 @@ $entryListElement.addEventListener('click', (event: Event) => {
       for (const entry of data.entries) {
         if (entry.entryId === $clickedEntryId) {
           data.editing = entry;
-          // $headerEntry.textContent = 'Entries';
           prepopulateFormForEntryEdit(entry);
           viewSwap('entry-form');
           break;
@@ -200,6 +199,9 @@ function prepopulateFormForEntryEdit(entry: JournalEntry): void {
   formControls.notes.value = entry.notes;
   $entryImage.setAttribute('src', entry.photoUrl);
   $headerEntry.textContent = 'Edit Entry';
+  if (data.editing !== null) {
+    $deleteButton?.classList.remove('hide');
+  }
 }
 
 function toggleNoEntries(): void {
@@ -217,6 +219,7 @@ function viewSwap(viewName: 'entries' | 'entry-form'): void {
   if (viewName === 'entries') {
     $entriesViewElement.classList.remove('hidden');
     $entryFormViewElement.classList.add('hidden');
+    $deleteButton?.classList.add('hide');
   } else if (viewName === 'entry-form') {
     $entryFormViewElement.classList.remove('hidden');
     $entriesViewElement.classList.add('hidden');
