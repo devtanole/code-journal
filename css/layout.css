@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+.hide {
+  visibility: hidden !important;
+}
+
 .container {
   max-width: 575px;
   margin: 0 auto;

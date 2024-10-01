@@ -18,6 +18,11 @@ const $entriesViewElement = document.querySelector('div[data-view="entries"]');
 
 const $headerLinks = document.querySelectorAll('.head-links');
 const $headerEntry = document.querySelector('.header-entries') as HTMLElement;
+const $deleteButton = document.querySelector('.delete-button');
+const $modalElement = document.querySelector('dialog');
+const $cancelModal = document.querySelector('.cancel-modal');
+const $confirmModal = document.querySelector('.confirm-modal');
+
 if ($formElement == null || $entryImage == null || $entryListElement == null)
   throw new Error('failed');
 
@@ -75,6 +80,42 @@ function resetForm(): void {
   $entryImage.setAttribute('src', placeholderImage);
   $headerEntry.textContent = 'New Entry';
 }
+
+$deleteButton?.addEventListener('click', () => {
+  $modalElement?.showModal();
+});
+
+$cancelModal?.addEventListener('click', () => {
+  $modalElement?.close();
+});
+
+$confirmModal?.addEventListener('click', () => {
+  if (data.editing === null) return;
+  const entryItem: JournalEntry = data.editing;
+  const entryId = entryItem.entryId;
+  let entryIndex: number = -1;
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === entryId) {
+      entryIndex = i;
+      break;
+    }
+  }
+  if (entryIndex >= 0) {
+    data.entries.splice(entryIndex, 1);
+    const $liEntryToRemove = document.querySelector(
+      'li[data-entry-id="' + entryId + '"]',
+    );
+    $liEntryToRemove?.remove();
+    data.editing = null;
+    writeData();
+    resetForm();
+    $modalElement?.close();
+    toggleNoEntries();
+    viewSwap('entries');
+  } else {
+    throw new Error('Entry could not be found!');
+  }
+});
 
 // issue 2
 
