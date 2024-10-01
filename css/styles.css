@@ -36,6 +36,22 @@ textarea {
   text-decoration: none;
 }
 
+.delete-button {
+  color: red;
+  text-decoration: red underline;
+  background-color: transparent;
+  text-transform: none;
+  border: none;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.save {
+  position: relative;
+  top: -18px;
+  left: -22px;
+}
+
 .new {
   cursor: pointer;
   background-color: rgb(115, 21, 204);
